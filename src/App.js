@@ -50,11 +50,19 @@ const App = () => {
     }
   };
 
-  const addBlog = (blogObject) => {
+  const addBlog = async (blogObject) => {
     blogFormRef.current.toggleVisibility();
-    blogService.create(blogObject).then((returnedBlog) => {
-      setBlogs(blogs.concat(returnedBlog));
-    });
+    const returnedBlog = await blogService.create(blogObject);
+    setBlogs(blogs.concat(returnedBlog));
+  };
+
+  const addLike = async (id, blogObject) => {
+    const returnedBlog = await blogService.update(id, blogObject);
+    setBlogs(
+      blogs.map((blog) =>
+        blog.title === returnedBlog.title ? returnedBlog : blog
+      )
+    );
   };
 
   const loginForm = () => (
@@ -94,7 +102,7 @@ const App = () => {
         </div>
       )}
       {blogs.map((blog) => (
-        <Blog key={blog.id} blog={blog} />
+        <Blog key={blog.id} blog={blog} updateBlog={addLike} />
       ))}
     </div>
   );
