@@ -2,9 +2,11 @@ import React from "react";
 import { notificationChange } from "../reducers/notificationReducer";
 import { login } from "../reducers/userReducer";
 import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 const LoginForm = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -13,7 +15,9 @@ const LoginForm = () => {
       event.target.username.value = "";
       const password = event.target.password.value;
       event.target.password.value = "";
-      dispatch(login({ username, password }));
+      await dispatch(login({ username, password }));
+
+      history.push("/");
     } catch (exception) {
       dispatch(notificationChange("Wrong credentials", 10));
     }
