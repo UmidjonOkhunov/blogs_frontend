@@ -28,9 +28,12 @@ const LoginForm = () => {
       dispatch(notificationChange("Wrong credentials", 10));
     }
   };
+  const sighupStyle = {
+    paddingLeft: "15px",
+  };
   return (
     <div>
-      <h2>login</h2>
+      <h2>Login</h2>
       <Form onSubmit={handleLogin}>
         <Form.Group>
           <Form.Label>username:</Form.Label>
@@ -38,9 +41,11 @@ const LoginForm = () => {
           <Form.Label>password:</Form.Label>
           <Form.Control type="password" name="password" />
           <Button variant="primary" type="submit">
-            login
+            Login
           </Button>
-          <Link to="/signup">Login</Link>
+          <Link style={sighupStyle} to="/signup">
+            Sign Up
+          </Link>
         </Form.Group>
       </Form>
     </div>

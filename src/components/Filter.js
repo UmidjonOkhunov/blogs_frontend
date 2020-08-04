@@ -8,7 +8,7 @@ const Filter = () => {
 
   const handleChange = (event) => {
     // input-field value is in variable event.target.value
-    dispatch(filterChange(event.target.value));
+    dispatch(filterChange(event.target.value.toLowerCase()));
   };
   const style = {
     paddingTop: 10,
