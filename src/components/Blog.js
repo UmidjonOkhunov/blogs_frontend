@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { like, remove } from "../reducers/blogReducer";
 import { notificationChange } from "../reducers/notificationReducer";
+import { Button, Badge } from "react-bootstrap";
 
 const Blog = () => {
   const dispatch = useDispatch();
@@ -33,10 +34,18 @@ const Blog = () => {
   return (
     <div>
       <h2> {blog.title} </h2>
+      <Button variant="secondary" onClick={() => handleLike(blog)}>
+        Like <Badge variant="success">{blog.likes}</Badge>
+      </Button>{" "}
       <div>
-        <button onClick={() => handleLike(blog)}>like</button> {blog.likes}{" "}
+        <Button
+          variant="secondary"
+          onClick={() => handleDelete(id)}
+          style={{ marginTop: "10px", marginBottom: "10px" }}
+        >
+          Delete
+        </Button>
       </div>
-      <button onClick={() => handleDelete(id)}>delete</button>
       <div>{blog.author}</div>
       <a href={blog.url}>{blog.url}</a>
     </div>
