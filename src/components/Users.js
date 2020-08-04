@@ -1,42 +1,31 @@
 import React from "react";
-import { useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { like, remove } from "../reducers/blogReducer";
-import { notificationChange } from "../reducers/notificationReducer";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { Table } from "react-bootstrap";
 
-const Blog = () => {
-  const dispatch = useDispatch();
-  const blogs = useSelector((state) =>
-    state.blogs.filter((blog) => blog.title.includes(state.filter))
-  );
-
-  const id = useParams().id;
-  const blog = blogs.find((blog) => blog.id === id);
-
-  const handleLike = (blog) => {
-    const newObject = {
-      ...blog,
-      likes: blog.likes + 1,
-    };
-    dispatch(like(blog.id, newObject));
-    dispatch(notificationChange(`you voted '${blog.title}'`, 10));
-  };
-
-  const handleDelete = (id) => {
-    dispatch(remove(id));
-  };
-
+const User = ({ user }) => {
   return (
-    <div>
-      <h2> {blog.title} </h2>
-      <div>
-        <button onClick={() => handleLike(blog)}>like</button> {blog.likes}{" "}
-      </div>
-      <button onClick={() => handleDelete(id)}>delete</button>
-      <div>{blog.author}</div>
-      <div>{blog.url}</div>
-    </div>
+    <tr>
+      <td>
+        <Link to={`/users/${user.id}`}>{user.username}</Link>
+      </td>
+      <td> {user.blogs.length} </td>
+    </tr>
   );
 };
 
-export default Blog;
+const Users = () => {
+  const users = useSelector((state) => state.users);
+  console.log("diplaying", users);
+  return (
+    <Table striped>
+      <tbody>
+        {users.map((user) => (
+          <User key={user.id} user={user} />
+        ))}
+      </tbody>
+    </Table>
+  );
+};
+
+export default Users;

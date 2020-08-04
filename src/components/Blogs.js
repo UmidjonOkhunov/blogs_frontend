@@ -1,26 +1,34 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { Table } from "react-bootstrap";
 
-const Blog = ({ blog }) => {
+export const Blog = ({ blog }) => {
   return (
-    <li>
-      <Link to={`/blogs/${blog.id}`}>{blog.title}</Link>
-    </li>
+    <tr>
+      <td>
+        <Link to={`/blogs/${blog.id}`}>{blog.title}</Link>
+      </td>
+      <td> {blog.author} </td>
+    </tr>
   );
 };
 
 const Blogs = () => {
   const blogs = useSelector((state) =>
-    state.blogs.filter((blog) => blog.title.includes(state.filter))
+    state.blogs.filter((blog) =>
+      blog.title.toLowerCase().includes(state.filter)
+    )
   );
 
   return (
-    <ul>
-      {blogs.map((blog) => (
-        <Blog key={blog.id} blog={blog} />
-      ))}
-    </ul>
+    <Table striped>
+      <tbody>
+        {blogs.map((blog) => (
+          <Blog key={blog.id} blog={blog} />
+        ))}
+      </tbody>
+    </Table>
   );
 };
 

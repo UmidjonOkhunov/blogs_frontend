@@ -1,6 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { createBlog } from "../reducers/blogReducer";
+import { Form, Button } from "react-bootstrap";
 
 const NewBlog = ({ blogFormRef }) => {
   const dispatch = useDispatch();
@@ -24,11 +25,20 @@ const NewBlog = ({ blogFormRef }) => {
   };
 
   return (
-    <form onSubmit={addBlog}>
-      <input name="title" />
-      <input name="url" />
-      <button type="submit">add</button>
-    </form>
+    <div>
+      <h2>New Blog</h2>
+      <Form onSubmit={addBlog}>
+        <Form.Group>
+          <Form.Label>title:</Form.Label>
+          <Form.Control type="text" name="title" />
+          <Form.Label>url:</Form.Label>
+          <Form.Control type="text" name="url" />
+          <Button variant="primary" type="submit">
+            create
+          </Button>
+        </Form.Group>
+      </Form>
+    </div>
   );
 };
 

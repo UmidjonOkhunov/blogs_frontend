@@ -1,6 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { filterChange } from "../reducers/filterReducer";
+import { Button, InputGroup, FormControl } from "react-bootstrap";
 
 const Filter = () => {
   const dispatch = useDispatch();
@@ -10,12 +11,21 @@ const Filter = () => {
     dispatch(filterChange(event.target.value));
   };
   const style = {
-    marginBottom: 10,
+    paddingTop: 10,
   };
 
   return (
     <div style={style}>
-      filter <input onChange={handleChange} />
+      <InputGroup className="mb-3" onChange={handleChange}>
+        <FormControl
+          placeholder="Search here"
+          aria-label="Search here"
+          aria-describedby="basic-addon2"
+        />
+        <InputGroup.Append>
+          <Button variant="outline-secondary">Search</Button>
+        </InputGroup.Append>
+      </InputGroup>
     </div>
   );
 };
